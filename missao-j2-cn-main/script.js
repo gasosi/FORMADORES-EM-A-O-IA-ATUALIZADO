@@ -2,7 +2,7 @@ const caixaPrincipal = document.querySelector(".caixa-principal");
 const caixaPerguntas = document.querySelector(".caixa-perguntas");
 const caixaAlternativas = document.querySelector(".caixa-alternativas");
 const caixaResultado = document.querySelector(".caixa-resultado");
-const textoResultado = document.querySelector(".textoResultado");
+const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
     {
@@ -50,6 +50,10 @@ let atual = 0;
 let perguntaAtual;
 
 function mostraPergunta(){
+if(atual >=perguntas.length){
+    mostraResultado();
+    return;
+}
     perguntaAtual = perguntas[atual];
     caixaPerguntas.textContent = perguntaAtual.enunciado;
     caixaAlternativas.textContent = "";
@@ -63,9 +67,18 @@ function mostraAlternativas(){
         botaoAlternativas.addEventListener('click', ()=> respostaSelecionada(alternativa));
         caixaAlternativas.appendChild(botaoAlternativas);        
     }
+
+    function moxtraResultado(){
+        caixaPerguntas.textContent = "Em 2049...";
+        textoResultado.textContent = historiafinal;
+        caixaAlternativas.textContent = "";
+    }
+
+
+
     function respostaSelecionada(opcaoSelecionada){
         const afirmacao = opcaoSelecionada.afirmacao;
-        historiafinal = afirmacao;
+        historiafinal += afirmacao + " ";
         atual++
         mostraPergunta();
 
@@ -73,3 +86,9 @@ function mostraAlternativas(){
     }
 }
 mostraPergunta();
+
+function mostraResultado(){
+    caixaPerguntas.textContent = "Em 2030...";
+    textoResultado.textContent = historiafinal;
+    caixaAlternativas.textContent = "";
+}
